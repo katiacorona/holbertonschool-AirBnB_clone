@@ -8,4 +8,3 @@ temp/
 # ignore main files
 *main.py
 *main.c
-test_base_model.py
