@@ -29,6 +29,7 @@ class Test_BaseModel_init(unittest.TestCase):
         b = BaseModel()
         self.assertNotEqual(a.id, b.id)
 
+
 class Test_BaseModel_save(unittest.TestCase):
     """Unittests for save method of BaseModel class."""
 
@@ -49,6 +50,7 @@ class Test_BaseModel_save(unittest.TestCase):
         bm.save()
         self.assertGreater(bm.updated_at, checkpoint_2)
 
+
 class Test_BaseModel_to_dict(unittest.TestCase):
     """Unittests for to_dict method of BaseModel class."""
 
@@ -62,6 +64,7 @@ class Test_BaseModel_to_dict(unittest.TestCase):
         self.assertIn("created_at", bm.to_dict())
         self.assertIn("updated_at", bm.to_dict())
         self.assertIn("__class__", bm.to_dict())
+
 
 if __name__ == '__main__':
     unittest.main()
