@@ -29,6 +29,16 @@ class Test_BaseModel_init(unittest.TestCase):
         b = BaseModel()
         self.assertNotEqual(a.id, b.id)
 
+    def test_str_formatting(self):
+        bm = BaseModel()
+        dt = datetime.now()
+        bm.id = "16180"
+        bm_dict = {
+                'id': '16180',
+                '__class__': 'BaseModel',
+                'created_at': dt.isoformat(),
+                'updated_at': dt.isoformat(),
+        }
 
 class Test_BaseModel_save(unittest.TestCase):
     """Unittests for save method of BaseModel class."""
@@ -65,6 +75,13 @@ class Test_BaseModel_to_dict(unittest.TestCase):
         self.assertIn("updated_at", bm.to_dict())
         self.assertIn("__class__", bm.to_dict())
 
+    def test_to_dict_added_attributes(self):
+        bm = BaseModel()
+        bm.name = "Betty"
+        bm.my_number = 98
+        self.assertIn("name", bm.to_dict())
+        self.assertIn("my_number", bm.to_dict())
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
