@@ -19,9 +19,9 @@ class BaseModel:
         if len(kwargs) > 0:
             for key, val in kwargs.items():
                 if key == "created_at" or key == "updated_at":
-                    self.__dict__[key] = datetime.strptime(val, dt_format)
+                    val = datetime.strptime(val, dt_format)
                 elif key != "__class__":
-                    self.__dict__[key] = val
+                    setattr(self, key, val)
 
     def save(self):
         """Updates the public instance attribute update_at."""
