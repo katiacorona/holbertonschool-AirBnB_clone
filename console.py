@@ -123,7 +123,7 @@ class HBNBCommand(cmd.Cmd):
             """
             my_dict = models.storage.all()
             for key, val in my_dict.items():
-                print(value)
+                print(val)
         else:
             arg_split = arg.split(" ")
             if arg_splt[0] not in allclasses:
@@ -131,8 +131,16 @@ class HBNBCommand(cmd.Cmd):
             else:
                 my_dict = models.storage.all()
                 for key, val in my_dict.items():
-                    if value.__class__.__name__ == arg_split[0]:
+                    if val.__class__.__name__ == arg_split[0]:
                         print(val)
+
+    def do_update(self, arg):
+        """
+        Updates an instance based on the class name and
+        id by adding or updating attribute (save the change
+        into the JSON file)
+        """
+        
 
 
 if __name__ == '__main__':
