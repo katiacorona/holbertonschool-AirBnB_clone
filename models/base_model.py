@@ -4,29 +4,35 @@ Defines the BaseModel class.
 """
 from uuid import uuid4
 from datetime import datetime
+import models
 
 
 class BaseModel:
-    """Defines all common attributes/methods for other classes."""
+    """
+    Defines all common attributes/methods
+    for other classes.
+    """
 
     def __init__(self, *args, **kwargs):
-        """Initializes a new BaseModel.
         """
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        Initializes a new BaseModel.
+        """
         if len(kwargs) > 0:
             for key, val in kwargs.items():
                 if key == "created_at" or key == "updated_at":
                     val = datetime.strptime(val, "%Y-%m-%dT%H:%M:%S.%f")
-                if key != "__class":
+                if key != "__class__":
                     setattr(self, key, val)
         else:
-            new instance
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            models.storage.new(self)
 
     def save(self):
         """Updates the public instance attribute update_at."""
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """Returns a dictionary containing all keys/values of the instance.
