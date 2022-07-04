@@ -22,7 +22,7 @@ class FileStorage:
     """
 
     __file_path = "file.json"
-    __objects = {}
+    __object = {}
 
     def all(self):
         """
@@ -38,7 +38,7 @@ class FileStorage:
         """
 
         if obj:
-            self.__objects["{}.{}".format(
+            self.__object["{}.{}".format(
                 obj.__class__.__name__, obj.id)] = obj
 
     def save(self):
@@ -47,7 +47,7 @@ class FileStorage:
         file (path: __file_path)
         """
         new_dict = {}
-        for id, object in self.__objects.items():
+        for id, object in self.__object.items():
             new_dict[id] = object.to_dict()
         with open(self.__file_path, mode="w", encoding="UTF-8") as myfile:
             json.dump(new_dict, myfile)
