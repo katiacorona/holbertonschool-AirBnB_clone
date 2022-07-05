@@ -17,17 +17,16 @@ class BaseModel:
         """
         Initializes a new BaseModel.
         """
+        dt_format = "%Y-%m-%dT%H:%M:%S.%f"
+        self.id = str(uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
         if len(kwargs) > 0:
             for key, val in kwargs.items():
                 if key == "created_at" or key == "updated_at":
-                    val = datetime.strptime(val, "%Y-%m-%dT%H:%M:%S.%f")
-                if key != "__class__":
+                    val = datetime.strptime(val, dt_format)
+                elif key != "__class__":
                     setattr(self, key, val)
-        else:
-            self.id = str(uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
-            models.storage.new(self)
 
     def save(self):
         """Updates the public instance attribute update_at."""
