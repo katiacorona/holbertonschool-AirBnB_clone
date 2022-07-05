@@ -60,7 +60,9 @@ class FileStorage:
         if os.path.isfile(self.__file_path):
             with open(self.__file_path, mode="r", encoding="UTF-8") as myfile:
                 python_dict = json.loads(myfile.read())
-                my_dict = {"BaseModel": BaseModel}
+                my_dict = {"BaseModel": BaseModel, "User": User,
+                           "State": State, "City": City, "Amenity": Amenity,
+                           "Place": Place, "Review": Review}
                 for key, val in python_dict.items():
                     obj_type = key.split(".", 1)[0]
                     self.new(my_dict[obj_type](**val))
