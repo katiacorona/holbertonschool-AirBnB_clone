@@ -12,7 +12,6 @@ class User(BaseModel):
     public attributes: email, password,
     first name and last name
     """
-
     email = ""
     password = ""
     first_name = ""
@@ -20,7 +19,7 @@ class User(BaseModel):
 
     def __init__(self, *args, **kwargs):
         """
-        Calls for super() function to
-        use the __init__ from BaseModel
+        Calls for super() function to use the __init__ from parent __init__
+        constructor (BaseModel).
         """
         super().__init__(*args, **kwargs)

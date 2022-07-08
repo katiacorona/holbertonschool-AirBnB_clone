@@ -7,11 +7,11 @@ import cmd
 import models
 from models.base_model import BaseModel
 from models import storage
-from models import allclasses
 from models.user import User
 from models.place import Place
 from models.state import State
 from models.city import City
+from models import allclasses
 from models.amenity import Amenity
 from models.review import Review
 
@@ -53,12 +53,15 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
         else:
+            """
+            Try to create a new instance of an existing model
+            """
             arg_split = arg.split(" ")
             if arg_split[0] not in allclasses:
                 print("** class doesn't exist **")
             else:
                 """
-                create new obj
+                Find a class name that does exist and create new obj
                 """
                 my_obj = eval(arg_split[0])()
                 my_obj.save()
@@ -85,10 +88,10 @@ class HBNBCommand(cmd.Cmd):
                     obj_name = arg_split[0]
                     obj_id = arg_split[1]
                     key = str(obj_name) + "." + str(obj_id)
-                    if key not in models.storage.all():
+                    if key not in storage.all():
                         print("** no instance found **")
                     else:
-                        print(models.storage.all()[key])
+                        print(storage.all()[key])
 
     def do_destroy(self, arg):
         """
@@ -111,11 +114,11 @@ class HBNBCommand(cmd.Cmd):
                     obj_name = arg_split[0]
                     obj_id = arg_split[1]
                     key = str(obj_name) + "." + str(obj_id)
-                    if key not in models.storage.all():
+                    if key not in storage.all():
                         print("** no instance found **")
                     else:
-                        del(models.storage.all()[key])
-                        models.storage.save()
+                        del(storage.all()[key])
+                        storage.save()
 
     def do_all(self, arg):
         """
@@ -127,15 +130,15 @@ class HBNBCommand(cmd.Cmd):
             Prints all the storage dictionary
             Because we didnt specify the Class
             """
-            my_dict = models.storage.all()
+            my_dict = storage.all()
             for key, val in my_dict.items():
                 print(val)
         else:
             arg_split = arg.split(" ")
-            if arg_splt[0] not in allclasses:
+            if arg_split[0] not in allclasses:
                 print("** class doesn't exist **")
             else:
-                my_dict = models.storage.all()
+                my_dict = storage.all()
                 for key, val in my_dict.items():
                     if val.__class__.__name__ == arg_split[0]:
                         print(val)
@@ -145,7 +148,9 @@ class HBNBCommand(cmd.Cmd):
         Updates an instance based on the class name and
         id by adding or updating attribute (save the change
         into the JSON file)
+        Usage: Update <name> <id> <attribute name> "<attribute value>"
         """
+        var_not_updatable = ['id', 'created_at', 'updated_at']
 
 
 if __name__ == '__main__':
